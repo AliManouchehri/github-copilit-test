@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node App</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 60px auto; text-align: center; }
+    input, button { padding: 8px 14px; font-size: 1rem; }
+    button { cursor: pointer; background: #27ae60; color: #fff; border: none; border-radius: 4px; }
+    #result { margin-top: 20px; font-size: 1.2rem; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Node.js Web App</h1>
+  <p>Enter your name and click Greet:</p>
+  <input type="text" id="nameInput" placeholder="Your name" />
+  <button onclick="greet()">Greet</button>
+  <div id="result"></div>
+
+  <script>
+    async function greet() {
+      const name = document.getElementById('nameInput').value;
+      const res = await fetch('/api/greet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+      const data = await res.json();
+      document.getElementById('result').textContent = data.message;
+    }
+  </script>
+</body>
+</html>
